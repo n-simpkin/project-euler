@@ -1,0 +1,2 @@
+from EulerLibrary import findHighestPrimeFactor
+print(findHighestPrimeFactor(600851475143))
