@@ -1,7 +1,9 @@
 #New, going for a fully like top down plan type approach before coding.
+#Aka unedrstanding the problem polya
 for i in range(1,21):
     print(i, 1/i)
 
+#If denominator can be written in the form 2^n5^m, it won't have a repeating cycle. otherwise, has repeating cycle. Therefore solves problem of how much of the decimal to store, as just keep increasing until cycle is found.
 for num in range(7,8):
     decimal = 1/num
     lastSeen = dict()
