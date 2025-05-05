@@ -1,15 +1,35 @@
 from EulerLibrary import findDivisors
+import numpy as np
 
 #New, going for a fully like top down plan type approach before coding.
-#Aka unedrstanding the problem polya
+#Aka understanding the problem polya
 for i in range(1,21):
     print(i, 1/i)
 
-#Put in big loop
-numsToCheck = []
-if num % 5 == 0 and num % 2 == 0:
-    if set(findDivisors(num)) == {2, 5}:
-        numsToCheck.append(num)
+# #Put in big loop
+# numsToCheck = []
+
+# for num in range (1,1000):
+#     if num % 5 == 0 or num % 2 == 0: #5 & 0 automatically caught
+#         divisors = set(findDivisors(num))
+#         if divisors == {2,5} or divisors == {2} or divisors == {5}:
+#             numsToCheck.append(num)
+    
+#Quicker to generate the numbers?
+
+#2^9, 5^4 for the specific powers.
+numsExclude = set()
+
+for i in range(10): #Could narrow my ranges more probably but can't be bothered.
+    for j in range(5):
+        num = (2**i) * (5**j)
+        if num < 1000:
+            numsExclude.add(num)
+
+print("excl", numsExclude)
+numsCheck = set([i for i in range(1,1000)])
+numsCheck -= numsExclude
+print(numsCheck)
 
 #If denominator can be written in the form 2^n5^m, it won't have a repeating cycle. otherwise, has repeating cycle. Therefore solves problem of how much of the decimal to store, as just keep increasing until cycle is found.
 for num in range(7,8):
