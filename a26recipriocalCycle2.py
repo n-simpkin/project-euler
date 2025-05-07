@@ -1,10 +1,16 @@
 from EulerLibrary import findDivisors
 import numpy as np
 
-def getNextDigitOfDecimal(decimal, currentDigitPosition):
-    nextDigit = int(((decimal*(10**(currentDigitPosition))) - int(decimal*(10**(currentDigitPosition)))) * 10) #Plus one so we don't check int(decimal*1) which will be the starting zero and is not part of the sequence.
+def getNextDigitOfDecimal(decimal, firstDigitPosition):
+    nextDigit = int(((decimal*(10**(firstDigitPosition))) - int(decimal*(10**(firstDigitPosition)))) * 10) #Plus one so we don't check int(decimal*1) which will be the starting zero and is not part of the sequence.
     return nextDigit
 
+def getNextDigitsOfDecimal(decimal, firstDigitPosition, numOfSubsequentDigits): #Hold as arrays of numbers?
+    nextDigits = 0
+    for digitIndex in range(numOfSubsequentDigits):
+        nextDigit = getNextDigitOfDecimal(decimal, digitIndex)
+
+    return nextDigits
 #New, going for a fully like top down plan type approach before coding.
 #Aka understanding the problem polya
 for i in range(1,21):
