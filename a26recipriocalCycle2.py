@@ -1,6 +1,10 @@
 from EulerLibrary import findDivisors
 import numpy as np
 
+def getNextDigitOfDecimal(decimal, currentDigitPosition):
+    nextDigit = int(((decimal*(10**(currentDigitPosition))) - int(decimal*(10**(currentDigitPosition)))) * 10) #Plus one so we don't check int(decimal*1) which will be the starting zero and is not part of the sequence.
+    return nextDigit
+
 #New, going for a fully like top down plan type approach before coding.
 #Aka understanding the problem polya
 for i in range(1,21):
@@ -11,7 +15,7 @@ for i in range(1,21):
 
 # for num in range (1,1000):
 #     if num % 5 == 0 or num % 2 == 0: #5 & 0 automatically caught
-#         divisors = set(findDivisors(num))
+#         divisors = set(findDivisors(num)) 
 #         if divisors == {2,5} or divisors == {2} or divisors == {5}:
 #             numsToCheck.append(num)
     
@@ -36,18 +40,24 @@ for num in range(7,8):
     decimal = 1/num
     lastSeen = dict()
     for currentDigitPosition in range(20): #TEMP
-        digit = int(((decimal*(10**(currentDigitPosition))) - int(decimal*(10**(currentDigitPosition)))) * 10) #Plus one so we don't check int(decimal*1) which will be the starting zero and is not part of the sequence.
+        #Get next digit:
+        #digit = int(((decimal*(10**(currentDigitPosition))) - int(decimal*(10**(currentDigitPosition)))) * 10) #Plus one so we don't check int(decimal*1) which will be the starting zero and is not part of the sequence.
+        digit = getNextDigitOfDecimal(decimal, currentDigitPosition)
         print(digit)
+
         if digit in lastSeen: #If same, possibly the start of a repeating cycle.
             lastInstanceOfCurrentDigit = lastSeen[digit]
             numDigitsToCheck = currentDigitPosition - lastInstanceOfCurrentDigit #neccessary?
             #Reconstruct the decimals between these digits
+
+            #String concatenation not efficient
             digitsAfter = ""
             for subsequentDigitPosition in range((currentDigitPosition + 1), ((currentDigitPosition + 1) + numDigitsToCheck)): #plus ones so checking next digit, as the start is inclusive.
                 digitsAfter += str(int(((decimal*(10**(currentDigitPosition))) - int(decimal*(10**(currentDigitPosition)))) * 10))
             digitsBefore = ""
             for prevRepeatingSection in range((lastInstanceOfCurrentDigit + 1), ((lastInstanceOfCurrentDigit + 1) + numDigitsToCheck)): #plus ones so checking next digit, as the start is inclusive.
                 digitsBefore += str(int(((decimal*(10**(lastInstanceOfCurrentDigit))) - int(decimal*(10**(lastInstanceOfCurrentDigit)))) * 10))
+        
         lastSeen[digit] = currentDigitPosition
 
 print(lastSeen)
